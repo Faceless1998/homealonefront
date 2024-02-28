@@ -56,19 +56,20 @@ export default function AddNewProduct() {
       }
     });
   }, []);
+  
+  const handleFileRead = (fileReader, index) => {
+    fileReader.onload = () => {
+      let fileURL = fileReader.result;
+      setProductImg(prevImages => [...prevImages, fileURL]);
+    };
+  };
+
   const onChange = (e) => {
     let x = [];
     if (e.target.files.length > 1) {
       for (let i = 0; i < e.target.files.length; i++) {
         let fileReader = new FileReader();
-        fileReader.onload = () => {
-          console.log("eld");
-          let fileURL = fileReader.result;
-          console.log(fileURL);
-          x = [...x, fileURL];
-          console.log(x);
-          setProductImg(x);
-        };
+        handleFileRead(fileReader, i);
         fileReader.readAsDataURL(e.target.files[i]);
       }
     } else {
@@ -85,7 +86,7 @@ export default function AddNewProduct() {
     const data = { name, description, feature, thumbImg, productImg };
     const dataRU = { nameRU, descriptionRU, featureRU };
     const dataGE = { nameGE, descriptionGE, featureGE };
-    if (type == "false") {
+    if (type === "false") {
       alert("აირჩიეთ პროდუქტის ტიპი");
     } else {
       axios
@@ -105,6 +106,7 @@ export default function AddNewProduct() {
         });
     }
   };
+  
   const [checked, setChecked] = React.useState(true);
 
   const handleChange = (event) => {
@@ -113,6 +115,7 @@ export default function AddNewProduct() {
     }
     setChecked(event.target.checked);
   };
+
   return (
     <>
       {console.log(checked, unicProd)}

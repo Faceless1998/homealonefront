@@ -1,15 +1,16 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import Routes
 import Admin from "./components/admin";
 import AddNewProduct from "./components/addNewProduct";
+
 function App() {
   return (
     <>
       <Router>
-        <Switch>
-          <Route exact path="/" component={Admin} />
-          <Route path="/addProduct" component={AddNewProduct} />
-        </Switch>
+        <Routes> {/* Wrap Routes around Route components */}
+          <Route path="/" element={<Admin />} /> {/* Use element prop */}
+          <Route path="/addProduct" element={<AddNewProduct />} /> {/* Use element prop */}
+        </Routes>
       </Router>
     </>
   );
